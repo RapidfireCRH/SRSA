@@ -22,8 +22,22 @@ namespace Randomize_alphabet
                 collection[i] = getrandom();
                 display(collection[i], i, numoftimes);
             }
-            display(collection[collection.Length-1], numoftimes, numoftimes, true);
-            Console.Read();
+            display(collection[collection.Length - 1], numoftimes, numoftimes, true);
+            string[] information = analysis(collection);
+            string[] complier = new string[5 + information.Length + collection.Length];
+            complier[0] = "Testing " + numoftimes;
+            complier[1] = "Total Seconds elapsed: " + Math.Round(Timer.Subtract(Start).TotalSeconds, 0);
+            complier[2] = "Analysis: ";
+            long j = 3;
+            foreach (string x in information)
+                complier[j++] = x;
+            complier[j++] = "";
+            complier[j++] = "Collection: ";
+            foreach (string x in collection)
+                complier[j++] = "\"" + x + "\"";
+            File.WriteAllLines("test" + Start.ToShortDateString().Replace('/', '-')+(Start.ToLongTimeString().Replace(":","").Replace(" ","")) + ".txt", complier);
+
+            
         }
         static string  getrandom()
         {
